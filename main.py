@@ -1,3 +1,4 @@
+import os
 import json
 import uuid
 
@@ -7,6 +8,9 @@ from flask_restful import Resource, Api, abort
 
 app = Flask(__name__)
 api = Api(app)
+
+
+API_HOST = os.environ.get('API_HOST', 'localhost')
 
 
 def generate_uuid():
@@ -70,4 +74,4 @@ api.add_resource(MeasurementList, '/v1/measurements/')
 
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run(host=API_HOST)
