@@ -5,7 +5,7 @@ from flask_restful import Api
 from flask_mongoengine import MongoEngine
 from flasgger import Swagger
 
-from resources import MeasurementList, MeasurementDetail
+from resources import MeasurementList, MeasurementDetail, ReportDetail
 
 API_HOST = os.environ.get('API_HOST', 'localhost')
 DB_HOST = os.environ.get('DB_HOST', 'localhost')
@@ -35,6 +35,7 @@ swagger = Swagger(app)
 
 api.add_resource(MeasurementDetail, '/v1/measurements/<string:id>')
 api.add_resource(MeasurementList, '/v1/measurements')
+api.add_resource(ReportDetail, '/v1/report/<string:period>')
 
 
 if __name__ == '__main__':

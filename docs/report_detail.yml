@@ -1,0 +1,73 @@
+Get a report of measurements for a given period
+---
+parameters:
+  - name: period
+    in: path
+    type: string
+    required: true
+definitions:
+  Report:
+    type: object
+    properties:
+      id:
+        type: string
+      user:
+        type: string
+      period:
+        type: string
+      values:
+        type: array
+        items:
+          $ref: '#/definitions/MeasurementValue'
+  MeasurementValue:
+    type: object
+    properties:
+      sys:
+        type: integer
+      dia:
+        type: integer
+      pul:
+        type: integer
+      date:
+        type: date
+      ok:
+        type: boolean
+responses:
+  200:
+    description: A report of measurements for a given period
+    schema:
+      $ref: '#/definitions/MeasurementReport'
+    examples:
+      {
+        "id": "5ecbe2edd3c7d10009616eb1",
+        "user": "5ecbd716f5faff0007f5f20b",
+        "period": "15-05-2020",
+        "values": [
+            {
+              "sys": 180,
+              "dia": 20,
+              "pul": 60,
+              "date": "2020-05-10",
+              "ok": true
+            },
+            {
+              "sys": 140,
+              "dia": 20,
+              "pul": 60,
+              "date": "2020-05-11",
+              "ok": false
+            }
+        ]
+      }
+  404:
+    description: Not found exception
+    examples:
+      {
+          "message": "Report ID=5ecb410509736c25ad74aa30 was not found"
+      }
+  500:
+    description: Internal server error exception
+    examples:
+      {
+        "message": "Divison by Zero"
+      }

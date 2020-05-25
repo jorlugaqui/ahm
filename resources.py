@@ -3,7 +3,7 @@ from flasgger import swag_from
 from mongoengine.errors import ValidationError, NotUniqueError
 from werkzeug.exceptions import NotFound, BadRequest
 
-from models import Measurement, User
+from models import Measurement, User, Report
 from utils import normalize_data
 
 
@@ -85,5 +85,22 @@ class MeasurementList(Resource):
             abort(400, message=e.data.get('message'))
         except (NotUniqueError, ValidationError) as e:
             abort(400, message=str(e))
+        except Exception as e:
+            abort(500, message=str(e))
+
+
+class ReportDetail(Resource):
+    @swag_from('docs/report_detail.yml', methods=['GET'])
+    def get(self, period):
+        """
+        Returns a list of measurements given a time-period range
+        """
+        try:
+            report = Report.objects(period=period).first()
+            if report is not None:
+                return report.to_dict(), 200
+            abort(404, message=f'Report for period={period} was not found')
+        except NotFound as e:
+            raise e
         except Exception as e:
             abort(500, message=str(e))
