@@ -11,6 +11,10 @@ class User(Document):
 
 
 class Measurement(Document):
+    MAX_SYS = 130
+    MAX_DIA = 85
+    MAX_PUL = 100
+
     sys = IntField(min_value=0, max_value=200, required=True)
     dia = IntField(min_value=0, max_value=200, required=True)
     pul = IntField(min_value=0, max_value=200, required=True)
@@ -26,6 +30,9 @@ class Measurement(Document):
             'created': self.created.strftime("%Y-%m-%d"),
             'user': str(self.user.id)
         }
+
+    def is_ok(self):
+        return not (self.sys > self.MAX_SYS or self.dia > self.MAX_DIA or self.pul > self.MAX_PUL)
 
 
 class MeasurementValue(EmbeddedDocument):
