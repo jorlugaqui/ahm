@@ -1,5 +1,4 @@
-import os
-
+import constants
 from flask import Flask
 from flask_restful import Api
 from flask_mongoengine import MongoEngine
@@ -7,20 +6,14 @@ from flasgger import Swagger
 
 from resources import MeasurementList, MeasurementDetail, ReportDetail
 
-API_HOST = os.environ.get('API_HOST', 'localhost')
-DB_HOST = os.environ.get('DB_HOST', 'localhost')
-DB_NAME = os.environ.get('DB_NAME', '')
-DB_USER = os.environ.get('DB_USER', '')
-DB_PASSWORD = os.environ.get('DB_PASSWORD', '')
-
 app = Flask(__name__)
 
 app.config['MONGODB_SETTINGS'] = {
-    'host': DB_HOST,
-    'db': DB_NAME,
+    'host': constants.DB_HOST,
+    'db': constants.DB_NAME,
     'connect': False,
-    'username': DB_USER,
-    'password': DB_PASSWORD,
+    'username': constants.DB_USER,
+    'password': constants.DB_PASSWORD,
     'authentication_source': 'admin'
 }
 
@@ -39,4 +32,4 @@ api.add_resource(ReportDetail, '/v1/report/<string:period>')
 
 
 if __name__ == '__main__':
-    app.run(host=API_HOST)
+    app.run(host=constants.API_HOST)

@@ -1,18 +1,13 @@
-import os
 import logging
 from mongoengine import connect, disconnect
 from models import Report, MeasurementValue, Measurement, User
 from utils import get_yesterday_date, get_period, get_formatted_date
+from constants import DB_NAME, DB_HOST, DB_USER, DB_PASSWORD
 
 logger = logging.getLogger(__name__)
 logger.setLevel(logging.INFO)
 console = logging.StreamHandler()
 logger.addHandler(console)
-
-DB_HOST = os.environ.get('DB_HOST', 'localhost')
-DB_NAME = os.environ.get('DB_NAME', '')
-DB_USER = os.environ.get('DB_USER', '')
-DB_PASSWORD = os.environ.get('DB_PASSWORD', '')
 
 
 def mongo_operation(func):
