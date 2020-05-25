@@ -10,7 +10,11 @@ def get_formatted_date(date):
 
 
 def get_yesterday_date():
-    return datetime.now() - timedelta(1)
+    return datetime.utcnow() - timedelta(1)
+
+
+def get_today_date():
+    return datetime.utcnow()
 
 
 def get_period(date):

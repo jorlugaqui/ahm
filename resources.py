@@ -5,7 +5,7 @@ from mongoengine.errors import ValidationError, NotUniqueError
 from werkzeug.exceptions import NotFound, BadRequest
 
 from models import Measurement, User, Report
-from utils import normalize_data
+from utils import normalize_data, get_today_date, get_formatted_date
 
 
 class MeasurementDetail(Resource):
@@ -41,6 +41,8 @@ class MeasurementDetail(Resource):
         try:
             measurement = Measurement.objects(id=id).first()
             if measurement is not None:
+                if get_formatted_date(get_today_date()) != get_formatted_date(measurement.created):
+                    raise BadRequest(f'Cannot update a measurement for {get_formatted_date(measurement.created)}')
                 data = self.reqparse.parse_args()
                 data = normalize_data(data)
                 measurement.update(**data)
@@ -50,6 +52,9 @@ class MeasurementDetail(Resource):
         except NotFound as e:
             app.logger.error(e)
             raise e
+        except BadRequest as e:
+            app.logger.error(e)
+            abort(400, message=str(e))
         except Exception as e:
             app.logger.error(e)
             abort(500, message=str(e))
