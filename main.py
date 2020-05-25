@@ -57,10 +57,32 @@ class Measurement(Document):
 
 
 class MeasurementDetail(Resource):
+    def __init__(self):
+        self.reqparse = reqparse.RequestParser()
+        self.reqparse.add_argument('sys', type=int, required=False, location='json')
+        self.reqparse.add_argument('dia', type=int, required=False, location='json')
+        self.reqparse.add_argument('pul', type=int, required=False, location='json')
+        super(MeasurementDetail, self).__init__()
+
     def get(self, id):
         try:
             measurement = Measurement.objects(id=id).first()
             if measurement is not None:
+                return measurement.to_dict(), 200
+            abort(404, message=f'Measurement ID={id} was not found')
+        except NotFound as e:
+            raise e
+        except Exception as e:
+            abort(500, message=str(e))
+
+    def patch(self, id):
+        try:
+            measurement = Measurement.objects(id=id).first()
+            if measurement is not None:
+                data = self.reqparse.parse_args()
+                data = {k: v for k, v in data.items() if v is not None}
+                measurement.update(**data)
+                measurement.reload()
                 return measurement.to_dict(), 200
             abort(404, message=f'Measurement ID={id} was not found')
         except NotFound as e:
@@ -100,8 +122,8 @@ class MeasurementList(Resource):
             abort(500, message=str(e))
 
 
-api.add_resource(MeasurementDetail, '/v1/measurements/<string:id>/')
-api.add_resource(MeasurementList, '/v1/measurements/')
+api.add_resource(MeasurementDetail, '/v1/measurements/<string:id>')
+api.add_resource(MeasurementList, '/v1/measurements')
 
 
 if __name__ == '__main__':
