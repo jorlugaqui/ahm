@@ -1,4 +1,5 @@
 from flask_restful import Resource, abort, reqparse
+from flasgger import swag_from
 from mongoengine.errors import ValidationError, NotUniqueError
 from werkzeug.exceptions import NotFound, BadRequest
 
@@ -14,7 +15,11 @@ class MeasurementDetail(Resource):
         self.reqparse.add_argument('pul', type=int, required=False, location='json')
         super(MeasurementDetail, self).__init__()
 
+    @swag_from('docs/measurement_detail.yml', methods=['GET'])
     def get(self, id):
+        """
+        Returns a measurement given its ID
+        """
         try:
             measurement = Measurement.objects(id=id).first()
             if measurement is not None:
@@ -25,7 +30,11 @@ class MeasurementDetail(Resource):
         except Exception as e:
             abort(500, message=str(e))
 
+    @swag_from('docs/measurement_detail.yml', methods=['PATCH'])
     def patch(self, id):
+        """
+        Updates a measurement given its ID
+        """
         try:
             measurement = Measurement.objects(id=id).first()
             if measurement is not None:
@@ -49,14 +58,22 @@ class MeasurementList(Resource):
         self.reqparse.add_argument('pul', type=int, required=True, location='json')
         super(MeasurementList, self).__init__()
 
+    @swag_from('docs/measurement_list.yml', methods=['GET'])
     def get(self):
+        """
+        Get all measurements
+        """
         try:
             data = [measurement.to_dict() for measurement in Measurement.objects]
             return data, 200
         except Exception as e:
             abort(500, message=str(e))
 
+    @swag_from('docs/measurement_list.yml', methods=['POST'])
     def post(self):
+        """
+        Creates a measurement
+        """
         try:
             data = self.reqparse.parse_args()
             measurement = Measurement(**data)

@@ -1,0 +1,79 @@
+Create and list a measurement
+---
+parameters:
+    - name: body
+      in: body
+      schema:
+        id: Measurement
+        properties:
+          sys:
+            type: integer
+            required: true
+          dia:
+            type: integer
+            required: true
+          pul:
+            type: integer
+            required: true
+definitions:
+  Measurement:
+    type: object
+    properties:
+      id:
+        type: string
+      sys:
+        type: integer
+      dia:
+        type: integer
+      pul:
+        type: integer
+      created:
+        type: date
+      user:
+        type: string
+  MeasurementList:
+    type: array
+    items:
+      $ref: '#/definitions/Measurement'
+responses:
+  200:
+    description: A list of measurement objects
+    schema:
+      $ref: '#/definitions/MeasurementList'
+    examples:
+      [
+        {
+          "id": "5ecb410509736c25ad74aa37",
+          "sys": 15,
+          "dia": 12,
+          "pul": 60,
+          "created": "2020-05-25",
+          "user": "5ecb12ac786a2200066ebe53"
+        },
+        ...
+      ]
+  201:
+    description: A measurement object
+    schema:
+      $ref: '#/definitions/Measurement'
+    examples:
+      {
+        "id": "5ecb410509736c25ad74aa37",
+        "sys": 15,
+        "dia": 12,
+        "pul": 60,
+        "created": "2020-05-25",
+        "user": "5ecb12ac786a2200066ebe53"
+      }
+  400:
+    description: Validation error
+    examples:
+      {
+        "message": "Value sys is too long"
+      }
+  500:
+    description: Internal server error exception
+    examples:
+      {
+        "message": "Divison by Zero"
+      }
