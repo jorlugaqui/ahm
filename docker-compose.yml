@@ -22,13 +22,13 @@ services:
       ME_CONFIG_MONGODB_ADMINPASSWORD: ${MONGO_INITDB_ROOT_PASSWORD}
 
   api:
-    build: .
+    build: api/
     ports:
       - "5000:5000"
     depends_on:
       - mongo
     volumes:
-      - .:/app
+      - ./api:/app
     environment:
       FLASK_ENV: ${API_ENV}
       API_HOST: ${API_HOST}
