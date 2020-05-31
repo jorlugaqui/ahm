@@ -1,9 +1,11 @@
-import constants
 from flask import Flask
 from flask_restful import Api
 from flask_mongoengine import MongoEngine
 from flasgger import Swagger
+from mongoengine.errors import ValidationError, NotUniqueError
 
+import constants
+import errors
 from resources import MeasurementList, MeasurementDetail, ReportDetail
 
 app = Flask(__name__)
@@ -30,6 +32,8 @@ api.add_resource(MeasurementDetail, '/v1/measurements/<string:id>')
 api.add_resource(MeasurementList, '/v1/measurements')
 api.add_resource(ReportDetail, '/v1/report/<string:period>')
 
+app.register_error_handler(ValidationError, errors.handle_db_request_exception)
+app.register_error_handler(NotUniqueError, errors.handle_db_request_exception)
 
 if __name__ == '__main__':
     app.run(host=constants.API_HOST)
