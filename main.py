@@ -34,6 +34,8 @@ api.add_resource(ReportDetail, '/v1/report/<string:period>')
 
 app.register_error_handler(ValidationError, errors.handle_db_request_exception)
 app.register_error_handler(NotUniqueError, errors.handle_db_request_exception)
+app.register_error_handler(Exception, errors.handle_general_exception)
+
 
 if __name__ == '__main__':
     app.run(host=constants.API_HOST)
