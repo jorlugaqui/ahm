@@ -36,7 +36,7 @@ responses:
   200:
     description: A report of measurements for a given period
     schema:
-      $ref: '#/definitions/MeasurementReport'
+      $ref: '#/definitions/Report'
     examples:
       {
         "id": "5ecbe2edd3c7d10009616eb1",
