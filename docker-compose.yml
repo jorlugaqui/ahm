@@ -37,3 +37,15 @@ services:
       DB_HOST: ${DB_HOST}
       DB_USER: ${MONGO_INITDB_ROOT_USERNAME}
       DB_PASSWORD: ${MONGO_INITDB_ROOT_PASSWORD}
+
+  web:
+    build: web/
+    ports:
+      - "8080:8080"
+    depends_on:
+      - api
+    volumes:
+      - ./web:/app
+      - ./web/node_modules:/app/node_modules
+    environment:
+      NODE_ENV: development
