@@ -1,4 +1,5 @@
 from flask import Flask
+from flask_cors import CORS
 from flask_restful import Api
 from flask_mongoengine import MongoEngine
 from flasgger import Swagger
@@ -24,9 +25,12 @@ app.config['SWAGGER'] = {
     'uiversion': 2
 }
 
+CORS(app, resources={r'/*': {'origins': '*'}})
+
 api = Api(app, catch_all_404s=True)
 db = MongoEngine(app)
 swagger = Swagger(app)
+
 
 api.add_resource(MeasurementDetail, '/v1/measurements/<string:id>')
 api.add_resource(MeasurementList, '/v1/measurements')
