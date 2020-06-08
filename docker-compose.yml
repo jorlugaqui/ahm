@@ -49,3 +49,4 @@ services:
       - ./web/node_modules:/app/node_modules
     environment:
       NODE_ENV: development
+      VUE_APP_API_HOST: ${VUE_APP_API_HOST}
