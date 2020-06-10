@@ -1,5 +1,5 @@
 <template>
-  <div class='container'>
+  <div>
     <h3>Report </h3>
     <div class="input-group">
       <input v-model="period" placeholder="Type a period">
@@ -25,7 +25,7 @@
         </tr>
       </tbody>
     </table>
-    <alert :message=errorMessage v-if="showMessage"></alert>
+    <alert :message=errorMessage :type="'error'" v-if="showMessage"></alert>
   </div>
 </template>
 
