@@ -1,5 +1,6 @@
 <template>
-  <div class="alert alert-danger" role="alert">
+  <div class="alert"
+    v-bind:class="{'alert-danger': type === 'error', 'alert-success': type === 'ok'}" role="alert">
      {{ message }}
   </div>
 </template>
@@ -7,6 +8,6 @@
 <script>
 export default {
   name: 'Alert',
-  props: ['message'],
+  props: ['message', 'type'],
 };
 </script>
