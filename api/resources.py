@@ -23,7 +23,7 @@ class MeasurementDetail(AHMResource):
     def __init__(self):
         super().__init__(field_required=False)
 
-    @swag_from('docs/measurement_detail.yml', methods=['GET'])
+    @swag_from('docs/measurement_get.yml', methods=['GET'])
     def get(self, id):
         """
         Returns a measurement given its ID
@@ -33,7 +33,7 @@ class MeasurementDetail(AHMResource):
             return measurement.to_dict(), 200
         self.abort_with_http_code_error(404, f'Measurement ID={id} was not found')
 
-    @swag_from('docs/measurement_detail.yml', methods=['PATCH'])
+    @swag_from('docs/measurement_update.yml', methods=['PATCH'])
     def patch(self, id):
         """
         Updates a measurement given its ID
@@ -65,10 +65,10 @@ class MeasurementList(AHMResource):
         """
         Get all measurements
         """
-        data = [measurement.to_dict() for measurement in Measurement.objects]
+        data = [measurement.to_dict() for measurement in Measurement.latest()] # pylint: disable=no-value-for-parameter
         return data, 200
 
-    @swag_from('docs/measurement_list.yml', methods=['POST'])
+    @swag_from('docs/measurement_create.yml', methods=['POST'])
     def post(self):
         """
         Creates a measurement

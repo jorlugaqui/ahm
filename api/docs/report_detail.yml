@@ -1,4 +1,4 @@
-Get a report of measurements for a given period
+Get a report of measurements for a given period.
 ---
 parameters:
   - name: period

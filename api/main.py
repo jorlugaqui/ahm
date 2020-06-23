@@ -22,7 +22,7 @@ app.config['MONGODB_SETTINGS'] = {
 
 app.config['SWAGGER'] = {
     'title': 'AHM API',
-    'uiversion': 2
+    'uiversion': 3
 }
 
 CORS(app, resources={r'/*': {'origins': '*'}})
