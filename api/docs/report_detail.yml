@@ -29,7 +29,7 @@ definitions:
       pul:
         type: integer
       date:
-        type: date
+        type: string
       ok:
         type: boolean
 responses:

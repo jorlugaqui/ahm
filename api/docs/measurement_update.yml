@@ -30,7 +30,7 @@ definitions:
       pul:
         type: integer
       created:
-        type: date
+        type: string
       user:
         type: string
 responses:
