@@ -1,7 +1,7 @@
 from datetime import date
 from mongoengine import Document, IntField, DateTimeField, StringField, \
     EmailField, ReferenceField, BooleanField, EmbeddedDocumentField, \
-    ListField, EmbeddedDocument
+    ListField, EmbeddedDocument, queryset_manager
 
 
 class User(Document):
@@ -34,6 +34,10 @@ class Measurement(Document):
     def is_ok(self):
         return not (self.sys > self.MAX_SYS or self.dia > self.MAX_DIA or self.pul > self.MAX_PUL)
 
+    @queryset_manager
+    def latest(doc_cls, queryset):  # pylint: disable=no-self-argument
+        """ Returns the last 10 measurements """
+        return queryset.order_by('-created').limit(10)
 
 class MeasurementValue(EmbeddedDocument):
     sys = IntField(min_value=0, max_value=200, required=True)
