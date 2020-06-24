@@ -42,11 +42,9 @@ services:
     build: web/
     ports:
       - "8080:8080"
-    depends_on:
-      - api
     volumes:
       - ./web:/app
       - ./web/node_modules:/app/node_modules
     environment:
-      NODE_ENV: development
+      NODE_ENV: ${WEB_ENV}
       VUE_APP_API_HOST: ${VUE_APP_API_HOST}
