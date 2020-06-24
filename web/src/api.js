@@ -5,14 +5,30 @@ function fetchReport(period) {
   return fetch(path);
 }
 
-function sendMeasurement(data) {
+function sendMeasurement(measurement) {
   const path = `${VUE_APP_API_HOST}/v1/measurements`;
   return fetch(path, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
     },
-    body: JSON.stringify(data),
+    body: JSON.stringify(measurement),
+  });
+}
+
+function getMeasurement(id) {
+  const path = `${VUE_APP_API_HOST}/v1/measurements/${id}`;
+  return fetch(path);
+}
+
+function updateMeasurement(measurement) {
+  const path = `${VUE_APP_API_HOST}/v1/measurements/${measurement.id}`;
+  return fetch(path, {
+    method: 'PATCH',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(measurement),
   });
 }
 
@@ -32,5 +48,7 @@ function parseJSON(response) {
 export default {
   fetchReport,
   sendMeasurement,
+  getMeasurement,
+  updateMeasurement,
   parseJSON,
 };

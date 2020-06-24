@@ -6,6 +6,7 @@
       <button type="button" class="btn btn-primary" v-on:click="getReport"> Search </button>
     </div>
     <br>
+    <div class="table-responsive">
     <table class="table">
       <thead>
         <tr>
@@ -25,6 +26,7 @@
         </tr>
       </tbody>
     </table>
+    </div>
     <alert :message=errorMessage :type="'error'" v-if="showMessage"></alert>
   </div>
 </template>
