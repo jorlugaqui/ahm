@@ -30,7 +30,7 @@
 </template>
 
 <script>
-import axios from 'axios';
+import fetchReport from '@/api.js';
 import Alert from './Alert.vue';
 
 export default {
@@ -48,9 +48,7 @@ export default {
   },
   methods: {
     getReport() {
-      const { VUE_APP_API_HOST } = process.env;
-      const path = `${VUE_APP_API_HOST}/v1/report/${this.period}`;
-      axios.get(path)
+      fetchReport(this.period)
         .then((res) => {
           this.report = res.data;
           this.showMessage = false;
