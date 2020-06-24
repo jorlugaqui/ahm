@@ -36,7 +36,7 @@
 </template>
 
 <script>
-import axios from 'axios';
+import api from '@/api.js';
 import Alert from './Alert.vue';
 
 export default {
@@ -44,7 +44,6 @@ export default {
   data() {
     return {
       measurement: {
-        id: null,
         sys: 0,
         dia: 0,
         pul: 0,
@@ -60,31 +59,24 @@ export default {
   },
   methods: {
     addMeasurement() {
-      const { VUE_APP_API_HOST } = process.env;
-      let httpMethod = null;
-      let path = null;
-      if (this.measurement.id === null) {
-        httpMethod = 'post';
-        path = `${VUE_APP_API_HOST}/v1/measurements`;
-      } else {
-        httpMethod = 'patch';
-        path = `${VUE_APP_API_HOST}/v1/measurements/${this.measurement.id}`;
-      }
-      axios({
-        url: path,
-        method: httpMethod,
-        data: this.measurement,
-      })
-        .then((res) => {
-          this.measurement = res.data;
+      api.sendMeasurement(this.measurement)
+        .then(api.parseJSON)
+        .then((response) => {
+          if (response.ok) {
+            return Promise.resolve(response.json);
+          }
+          return Promise.reject(response.json);
+        })
+        .then((data) => {
+          this.measurement = data;
           this.showMessage = true;
           this.message = 'Measurement added';
           this.alertType = 'ok';
+          this.$router.push({ name: 'update', params: { id: this.measurement.id } });
         })
         .catch((error) => {
-          console.error(error);
           this.showMessage = true;
-          this.message = error.response.data.message;
+          this.message = error.message;
           this.alertType = 'error';
         });
     },

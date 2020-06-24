@@ -30,7 +30,7 @@
 </template>
 
 <script>
-import fetchReport from '@/api.js';
+import api from '@/api.js';
 import Alert from './Alert.vue';
 
 export default {
@@ -48,17 +48,23 @@ export default {
   },
   methods: {
     getReport() {
-      fetchReport(this.period)
-        .then((res) => {
-          this.report = res.data;
+      api.fetchReport(this.period)
+        .then(api.parseJSON)
+        .then((response) => {
+          if (response.ok) {
+            return Promise.resolve(response.json);
+          }
+          return Promise.reject(response.json);
+        })
+        .then((data) => {
+          this.report = data;
           this.showMessage = false;
           this.errorMessage = '';
         })
         .catch((error) => {
-          console.error(error);
           this.report = {};
           this.showMessage = true;
-          this.errorMessage = error.response.data.message;
+          this.errorMessage = error.message;
         });
     },
   },
