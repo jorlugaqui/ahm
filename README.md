@@ -114,6 +114,19 @@ You can also run a web UI interface (mongo-express) with:
 
 Bear that the first time will take a while since it needs to download the images.
 
+### Defining a default user
+
+For now, there is not support for authentication. Therefore, a default user is required. Once the mongo container gets working, you can create a user document like (in user collection):
+
+```
+{
+	"email": "john@gmail.com",
+	"name": "John",
+	"surname": "Wick"
+}
+```
+Keep in mind that the email you set is the email you need to add to the source code for filtering. This is very inconvenient, but authentication will come soon.
+
 ### Running the API
 
 `docker-compose up api`
