@@ -45,11 +45,29 @@ There are three main entities that are related to each other as follow:
 The API exposes the following endpoints:
 
 | HTTP METHOD | URI | Response |
-|---|---|---|---|---|
+|---|---|---|
 | POST | /v1/measurement | 201 |
 | PATCH | /v1/measurement/<id> | 200 |
 | GET  | /v1/measurement/<id> | 200 |
 | GET  | /v1/report/<time_period> | 200 |
+
+### Examples:
+
+* `curl --location --request GET 'http://127.0.0.1:5000/v1/measurements/5ecbd76781201d2624f9583c'`
+
+* `curl --location --request GET 'http://127.0.0.1:5000/v1/report/2020-05-31'`
+
+* `curl --location --request POST 'http://127.0.0.1:5000/v1/measurements' \
+--data-raw '{
+	"dia": 30,
+	"pul": 66,
+	"sys": 77
+}'`
+
+* `curl --location --request PATCH 'http://127.0.0.1:5000/v1/measurements/5ed329d0502dbd286623fd77' \
+--data-raw '{
+	"sys": 1
+}'`
 
 ## Business requirements
 
@@ -83,6 +101,8 @@ DB_HOST=mongo
 VUE_APP_API_HOST=http://localhost:5000
 WEB_ENV=development
 ```
+
+Keep in mind those values should be only used for local development.
 
 ### Running the database
 
