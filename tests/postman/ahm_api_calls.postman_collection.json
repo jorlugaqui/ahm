@@ -6,63 +6,6 @@
 	},
 	"item": [
 		{
-			"name": "Get a measurement",
-			"request": {
-				"method": "GET",
-				"header": [],
-				"url": {
-					"raw": "{{host}}/v1/measurements/5efce344b78b1c7bc22366b3",
-					"host": [
-						"{{host}}"
-					],
-					"path": [
-						"v1",
-						"measurements",
-						"5efce344b78b1c7bc22366b3"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "Get a report",
-			"request": {
-				"method": "GET",
-				"header": [],
-				"url": {
-					"raw": "{{host}}/v1/report/2020-05-31",
-					"host": [
-						"{{host}}"
-					],
-					"path": [
-						"v1",
-						"report",
-						"2020-05-31"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "Delete a measurement",
-			"request": {
-				"method": "DELETE",
-				"header": [],
-				"url": {
-					"raw": "{{host}}/v1/measurements/5ecbd76781201d2624f9583c",
-					"host": [
-						"{{host}}"
-					],
-					"path": [
-						"v1",
-						"measurements",
-						"5ecbd76781201d2624f9583c"
-					]
-				}
-			},
-			"response": []
-		},
-		{
 			"name": "Get all measurements",
 			"event": [
 				{
@@ -138,34 +81,6 @@
 					"path": [
 						"v1",
 						"measurements"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "Update a measurements",
-			"request": {
-				"method": "PATCH",
-				"header": [],
-				"body": {
-					"mode": "raw",
-					"raw": "{\n\t\"sys\": 1\n}",
-					"options": {
-						"raw": {
-							"language": "json"
-						}
-					}
-				},
-				"url": {
-					"raw": "{{host}}/v1/measurements/5efce344b78b1c7bc22366b3",
-					"host": [
-						"{{host}}"
-					],
-					"path": [
-						"v1",
-						"measurements",
-						"5efce344b78b1c7bc22366b3"
 					]
 				}
 			},
