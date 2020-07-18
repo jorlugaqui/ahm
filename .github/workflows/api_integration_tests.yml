@@ -1,4 +1,4 @@
-name: CI
+name: CI - Integration Test 
 
 # Controls when the action will run. Triggers the workflow on push or pull request
 # events but only for the master branch
@@ -43,8 +43,14 @@ jobs:
         python -m pip install --upgrade pip
         if [ -f api/requirements.txt ]; then pip install -r api/requirements.txt; fi
 
-    - name: Run the API
-      run: flask run
+    - name: Install Newman dependency
+      run: npm install --prefix tests/postman/
+
+    - name: Run the API and Postman's tests
+      run: |
+        cd api && flask run &
+        cd tests/postman/ && ./node_modules/newman/bin/newman.js run ahm_api_calls.postman_collection.json -e ahm-local.postman_environment.json
+        kill -9 `lsof -i:5000 -t`
       env:
         DB_USER: root
         DB_PASSWORD: root
@@ -53,10 +59,3 @@ jobs:
         FLASK_APP: main.py
         DB_NAME: ahm
         DB_HOST: localhost
-
-    - name: Run collections 
-      uses: matt-ball/newman-action@master
-      with:
-        collection: tests/postman/ahm_api_calls.postman_collection.json
-        environment: tests/postman/ahm-local.postman_environment.json
-   
