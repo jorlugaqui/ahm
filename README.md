@@ -1,10 +1,10 @@
-# AHM Python
+# AHM (Python)
 
 AHM is a shortcut for  *Application for hypertension monitoring*. Yes, I know, it is not the best name, but I like it.
 
 The backend for this project was written in Python, there is another variant for AHM I'm planning to implement in Golang, the repository will be located in:
 
-* https://github.com/jorlugaqui/ahm
+* https://github.com/jorlugaqui/ahm-serverless
 
 And actually, I wrote about it in:
 
