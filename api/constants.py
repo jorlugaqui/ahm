@@ -5,4 +5,4 @@ DB_HOST = os.environ.get('DB_HOST', 'localhost')
 DB_NAME = os.environ.get('DB_NAME', '')
 DB_USER = os.environ.get('DB_USER', '')
 DB_PASSWORD = os.environ.get('DB_PASSWORD', '')
-CI = os.environ.get('CI', False) == 'true'
+CI = os.environ.get('CI', False)

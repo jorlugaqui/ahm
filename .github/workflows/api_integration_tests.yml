@@ -53,10 +53,9 @@ jobs:
         cd tests/postman/ && ./node_modules/newman/bin/newman.js run ahm_api_calls.postman_collection.json -e ahm-local.postman_environment.json
         kill -9 `lsof -i:5000 -t`
       env:
-        DB_USER: root
-        DB_PASSWORD: root
         FLASK_ENV: development
         API_HOST: 0.0.0.0
         FLASK_APP: main.py
         DB_NAME: ahm
         DB_HOST: localhost
+        CI: true
