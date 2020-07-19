@@ -15,10 +15,12 @@ app.config['MONGODB_SETTINGS'] = {
     'host': constants.DB_HOST,
     'db': constants.DB_NAME,
     'connect': False,
-    'username': constants.DB_USER,
-    'password': constants.DB_PASSWORD,
-    'authentication_source': 'admin'
 }
+
+if not constants.CI:
+    app.config['MONGODB_SETTINGS']['username'] = constants.DB_USER
+    app.config['MONGODB_SETTINGS']['password'] = constants.DB_PASSWORD
+    app.config['MONGODB_SETTINGS']['authentication_source'] = 'admin'
 
 app.config['SWAGGER'] = {
     'title': 'AHM API',
