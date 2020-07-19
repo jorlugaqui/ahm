@@ -75,7 +75,13 @@ class MeasurementList(AHMResource):
         """
         data = self.reqparse.parse_args()
         measurement = Measurement(**data)
-        user = User.objects(email='jorlugaqui@gmail.com').first()
+        user = User.objects(email='jorlugaqui@gmail.com').modify(
+            upsert=True,
+            new=True,
+            set__email='jorlugaqui@gmail.com',
+            set__name='Jorge',
+            set__surname='Galvis'
+        )
         measurement.user = user
         measurement.save()
         return measurement.to_dict(), 201
