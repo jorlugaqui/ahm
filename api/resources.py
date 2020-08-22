@@ -33,8 +33,8 @@ class MeasurementDetail(AHMResource):
             return measurement.to_dict(), 200
         self.abort_with_http_code_error(404, f'Measurement ID={id} was not found')
 
-    @swag_from('docs/measurement_update.yml', methods=['PATCH'])
-    def patch(self, id):
+    @swag_from('docs/measurement_update.yml', methods=['PUT'])
+    def put(self, id):
         """
         Updates a measurement given its ID
         """
