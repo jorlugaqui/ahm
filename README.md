@@ -135,6 +135,10 @@ You may want to build the image first with:
 
 `docker-compose build api`
 
+### Running the UT locally for the API
+
+`docker-compose run api  sh -c "pip install -r requirements_ci.txt && pytest --cov=. --cov-config=.coveragerc"`
+
 ### Running the client
 
 The client requires a bit more patience for having it running in local with docker. First, let's build the image:
@@ -157,8 +161,8 @@ This application is not ready for production. But it eventually will.
 
 * Authentication
 * More elaborated client
-* Better error handling in the API
-* Makefile for deployment
-* Unit testing for the API
+* Makefile for deployment (started)
+* Unit testing for the API (started)
 * Unit testing for the client
-* Add CI/CD
+* Add CI (started)
+* Add CD
