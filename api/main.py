@@ -39,7 +39,7 @@ api.add_resource(MeasurementList, '/v1/measurements')
 api.add_resource(ReportDetail, '/v1/report/<string:period>')
 
 app.register_error_handler(ValidationError, errors.handle_db_request_exception)
-app.register_error_handler(NotUniqueError, errors.handle_db_request_exception)
+app.register_error_handler(NotUniqueError, errors.handle_db_duplicate_error)
 app.register_error_handler(Exception, errors.handle_general_exception)
 
 
