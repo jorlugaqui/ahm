@@ -2,7 +2,6 @@ aniso8601==8.0.0
 attrs==19.3.0
 click==7.1.2
 entrypoints==0.3
-flake8==3.7.9
 flasgger==0.9.4
 Flask==1.1.2
 Flask-Cors==3.0.8
@@ -17,8 +16,6 @@ MarkupSafe==1.1.1
 mccabe==0.6.1
 mistune==0.8.4
 mongoengine==0.20.0
-pycodestyle==2.5.0
-pyflakes==2.1.1
 pymongo==3.10.1
 pyrsistent==0.16.0
 pytz==2020.1
