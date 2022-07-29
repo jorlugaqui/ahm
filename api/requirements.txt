@@ -14,7 +14,7 @@ Jinja2==2.11.3
 jsonschema==3.2.0
 MarkupSafe==1.1.1
 mccabe==0.6.1
-mistune==0.8.4
+mistune==2.0.3
 mongoengine==0.20.0
 pymongo==3.10.1
 pyrsistent==0.16.0
